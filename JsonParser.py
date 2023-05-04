@@ -75,6 +75,7 @@ class JsonParser:
             Параметры:
                 table_rows : строки таблицы
         '''
+        #
         df = pd.DataFrame(table_rows)
         df['cluster'] = hcluster.fclusterdata(
             df[['x1']], t=35, criterion="distance")
