@@ -75,28 +75,34 @@ class JsonParser:
             Параметры:
                 table_rows : строки таблицы
         '''
-        #
         df = pd.DataFrame(table_rows)
         df['cluster'] = hcluster.fclusterdata(
             df[['x1']], t=35, criterion="distance")
+        # удаляем случайные кластеры
         df = df[df.groupby(['cluster']).transform('size') > 1]
+        # кластер стоимости должен быть самым "правым" и содержать цифры
         prices = df[(df.groupby(['cluster'])['x1'].transform('mean') == max(
             df.groupby(['cluster'])['x1'].mean())) & (df['text'].str.contains('\d'))]
         prices_cluster = prices['cluster'].mean()
+        # кластер наименований должен быть самым "длинным"
         items_cluster = max(df.groupby(['cluster'])['text'].apply(','.join).agg(
             lambda x: len(x)).items(), key=operator.itemgetter(1))[0]
         items = df[(df['cluster'] == items_cluster) &
                    (df['text'].transform(len) > 3)]
+        # удаляем кластеры с ценами и наименованиями
         df = df[(df['cluster'] != prices_cluster) &
                 (df['cluster'] != items_cluster)]
+        # находим вероятные клаcтеры с количеством имущества
         quantity_candidates = df[(df.groupby('cluster')['x1'].transform('mean') > items['x2'].mean()) & (
             df.groupby('cluster')['x1'].transform('mean') < prices['x1'].mean())]
+        # кластер с количеством имущества должен быть самым "коротким" среди кандидатов
         quantity_cluster = min(quantity_candidates.groupby(['cluster'])['text'].apply(
             ','.join).agg(lambda x: len(x)).items(), key=operator.itemgetter(1))[0]
 
         quantities = df[(df['cluster'] == quantity_cluster)
                         & (df['text'].str.contains('\d'))].to_dict('records')
         attributes = []
+        # связываем цену и количество
         if (len(prices) == len(quantities)):
             attributes = [{'price': price['text'], 'quantity': quantities[i]['text'],
                            'x1': quantities[i]['x1'], 'x2': quantities[i]['x2'],
@@ -146,5 +152,4 @@ class JsonParser:
         if (total):
             pairs.append(total)
         df = pd.DataFrame(pairs)
-       # df.insert(0, '№',  range(1, len(df)+1))
         return df
