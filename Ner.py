@@ -63,7 +63,7 @@ class Ner:
             span.normalize(self.morph_vocab)
         return list(filter(lambda r: r.type == 'ORG' or r.type == 'PER', doc.spans))
 
-    def get_bailiff_org(self):
+    def get_officer_dep(self):
         '''
             Функция возвращает название отдела СПИ
         '''
@@ -72,7 +72,7 @@ class Ner:
             return spans[0].normal
         return '-'
 
-    def get_bailiff_name(self):
+    def get_officer_name(self):
         '''
             Функция возвращает имя СПИ
         '''
@@ -81,7 +81,7 @@ class Ner:
             return spans[0].normal
         return '-'
 
-    def get_claimant_name(self):
+    def get_debtor_name(self):
         '''
             Функция возвращает имя/название компании должника
         '''
@@ -95,7 +95,7 @@ class Ner:
         return '-'
 
 
-    def get_debtor(self):
+    def get_claimant(self):
         '''
             Функция возвращает имя/название компании взыскателя
         '''
