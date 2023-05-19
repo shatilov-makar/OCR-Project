@@ -2,17 +2,27 @@ import streamlit as st
 from Ocr import Ocr
 from JsonParser import JsonParser
 from Ner import Ner
-
-
+import pdf2image
+import io
 ocr = Ocr()
 
 
 def load_image():
-    uploaded_file = st.file_uploader(
-        label='Выберите фотографию документа для распознавания')
+    label_text = 'Выберите фотографию документа для распознавания'
+    allowed_files = ['jpeg', 'jpg','png','pdf']
+    uploaded_file = st.file_uploader(label=label_text, type=allowed_files)
     if uploaded_file is not None:
-        image_data = uploaded_file.getvalue()
-        st.image(image_data)
+        image_data = ''
+        if uploaded_file.type == "application/pdf":
+            images = pdf2image.convert_from_bytes(uploaded_file.read(),fmt='jpeg', dpi=600, poppler_path=r'C:\Program Files\poppler-23.05.0\Library\bin')
+            page = images[0]
+            st.image(page, use_column_width=True)
+            buf = io.BytesIO()
+            page.save(buf, format='JPEG')
+            image_data = buf.getvalue()
+        else:
+            image_data = uploaded_file.getvalue()
+            st.image(image_data)
         return image_data
     else:
         return None
