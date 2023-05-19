@@ -14,7 +14,8 @@ def load_image():
     if uploaded_file is not None:
         image_data = ''
         if uploaded_file.type == "application/pdf":
-            images = pdf2image.convert_from_bytes(uploaded_file.read(),fmt='jpeg', dpi=600, poppler_path=r'C:\Program Files\poppler-23.05.0\Library\bin')
+            images = pdf2image.convert_from_bytes(uploaded_file.read(),
+                                                  fmt='jpeg', dpi=600)
             page = images[0]
             st.image(page, use_column_width=True)
             buf = io.BytesIO()
