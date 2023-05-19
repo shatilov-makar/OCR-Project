@@ -1,3 +1,7 @@
 .streamlit
 .vscode
+.pytest_cache
 .idea
+*logs
+*cache_
+__pycache__
