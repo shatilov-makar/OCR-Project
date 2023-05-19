@@ -1,10 +1,5 @@
-from requests import post
-import pandas as pd
-import json
-import base64
 import streamlit as st
 from Ocr import Ocr
-from PIL import Image
 from JsonParser import JsonParser
 from Ner import Ner
 
@@ -23,7 +18,8 @@ def load_image():
         return None
 
 
-st.title('Оцифровка уведомления о готовности к реализации арестовнного имущетсва ')
+st.title('Оцифровка уведомления о готовности к  \
+         реализации арестовнного имущетсва')
 img = load_image()
 result = st.button('Распознать документ')
 if result:
@@ -38,13 +34,12 @@ if result:
             st.warning('**Не удалось распознать документ**')
             st.stop()
         ner = Ner(jsonParser.doc_text)
-
-        notifNumber = ner.get_notif_number()
-
         st.success('**Результаты распознавания:**')
-        st.write('Увед. № ' + ner.get_notif_number() + ' от ' + ner.get_notif_date())
-        st.dataframe(df,use_container_width=False)
-        st.write(f'**Отдел** : { ner.get_officer_dep()}' )
-        st.write(f'**Имя СПИ** : { ner.get_officer_name()}' )
-        st.write(f'**Должник** : { ner.get_debtor_name()}' )
-        st.write(f'**Взыскатель** : { ner.get_claimant()}' )
+        notif_number = ner.get_notif_number()
+        notif_data = ner.get_notif_date()
+        st.write('Увед. № ' + notif_number + ' от ' + notif_data)
+        st.dataframe(df, use_container_width=False)
+        st.write(f'**Отдел** : { ner.get_officer_dep()}')
+        st.write(f'**Имя СПИ** : { ner.get_officer_name()}')
+        st.write(f'**Должник** : { ner.get_debtor_name()}')
+        st.write(f'**Взыскатель** : { ner.get_claimant()}')
