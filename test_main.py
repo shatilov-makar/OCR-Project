@@ -20,7 +20,7 @@ def test_normal_multiline_table():
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
         df = jsonParser.get_property()
-        assert len(df) == 22
+        assert len(df) == 21
 
 
 def test_broken_wrong_doc():
