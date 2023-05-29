@@ -1,3 +1,6 @@
 streamlit
 natasha
 scipy
+pdf2image
+aspose-words
+xlsxwriter
