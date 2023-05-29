@@ -9,7 +9,7 @@ ocr = Ocr()
 
 def load_image():
     label_text = 'Выберите фотографию документа для распознавания'
-    allowed_files = ['jpeg', 'jpg','png','pdf']
+    allowed_files = ['jpeg', 'jpg', 'png', 'pdf']
     uploaded_file = st.file_uploader(label=label_text, type=allowed_files)
     if uploaded_file is not None:
         image_data = ''
