@@ -1,3 +1,4 @@
+[![Tests](https://github.com/shatilov-makar/OCR-Project/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/shatilov-makar/OCR-Project/actions/workflows/python-app.yml)
 # Оцифровка уведомления о готовности к реализации арестованного имущества
 ## Состав команды:
 
