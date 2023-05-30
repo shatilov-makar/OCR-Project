@@ -1,3 +1,6 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
 name: Tests
 
 on:
@@ -32,11 +35,9 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: 'Create env file'
-        env:
-          SECRET: ${{ secrets.ENV_FILE }}
         run: |
           mkdir .streamlit && touch .streamlit/secrets.toml
-          echo "${{ env.SECRET }}" > .streamlit/secrets.toml
+          echo "${{ secrets.ENV_FILE }}" > .streamlit/secrets.toml
       - name: Test with pytest
         run: |
           pytest
