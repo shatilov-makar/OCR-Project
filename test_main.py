@@ -5,7 +5,7 @@ from JsonParser import JsonParser
 
 def test_normal_table():
     ocr = Ocr()
-    with open("test_images\\normal.jpg", "rb") as f:
+    with open("test_images/normal.jpg", "rb") as f:
         image_data = f.read()
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
@@ -15,7 +15,7 @@ def test_normal_table():
 
 def test_normal_multiline_table():
     ocr = Ocr()
-    with open("test_images\\multiline.jpg", "rb") as f:
+    with open("test_images/multiline.jpg", "rb") as f:
         image_data = f.read()
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
@@ -25,7 +25,7 @@ def test_normal_multiline_table():
 
 def test_broken_wrong_doc():
     ocr = Ocr()
-    with open("test_images\\wrong_doc.jpg", "rb") as f:
+    with open("test_images/wrong_doc.jpg", "rb") as f:
         image_data = f.read()
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
@@ -36,7 +36,7 @@ def test_broken_wrong_doc():
 
 def test_ner_normal():
     ocr = Ocr()
-    with open("test_images\\normal.jpg", "rb") as f:
+    with open("test_images/normal.jpg", "rb") as f:
         image_data = f.read()
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
@@ -49,7 +49,7 @@ def test_ner_normal():
 
 def test_ner_contracted():
     ocr = Ocr()
-    with open("test_images\\multiline.jpg", "rb") as f:
+    with open("test_images/multiline.jpg", "rb") as f:
         image_data = f.read()
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
@@ -62,7 +62,7 @@ def test_ner_contracted():
 
 def test_ner_wrong_doc():
     ocr = Ocr()
-    with open("test_images\\wrong_doc.jpg", "rb") as f:
+    with open("test_images/wrong_doc.jpg", "rb") as f:
         image_data = f.read()
         ocr_result = ocr.get_recognition(image_data)
         jsonParser = JsonParser(ocr_result)
